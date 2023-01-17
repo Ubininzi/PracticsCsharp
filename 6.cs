@@ -1,4 +1,4 @@
-Student std = new Student("имя","фамилия","пол")
+Student std = new Student("имя", "фамилия", "пол");
 
 //------------------------------------------------------------------------------------------------
 class Student{
@@ -13,13 +13,13 @@ class Student{
     private void setAvgmark(){
         if (marksForCourse.Count != 0){
             int marksAmount = 0;
-            ICollection<string> courseName = marksForCourse.Keys;
-            //foreach (string course in marksForCourse.Keys){
+            ICollection<string> coursesName = marksForCourse.Keys;
+            foreach (string course in coursesName){
                 foreach (double mark in marksForCourse[course]){
                     avgMark += mark;
                     marksAmount++;
                 }
-            //}
+            }
             avgMark /= marksAmount;
         }else{
             avgMark = 0;
