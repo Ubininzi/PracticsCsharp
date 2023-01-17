@@ -1,5 +1,13 @@
+using System;
+
 Student std = new Student("имя", "фамилия", "пол");
 std.printInfo();
+Lecturer lct = new Lecturer ("имя","фамилия");
+lct.courses.add("git");
+lct.printInfo();
+std.addMarkToLecturer(lct, "git", 10);
+std.addMarkToLecturer(lct, "git", 5);
+lct.printInfo();
 
 //------------------------------------------------------------------------------------------------
 class Student{
@@ -11,7 +19,7 @@ class Student{
 		this.name = name; this.surname = surname; this.floor = floor;
 	}
 	private double avgMark;
-	public void setAvgmark(){
+	public void setAvgMark(){
 		if (marksForCourse.Count != 0){
 			int marksAmount = 0;
 			foreach (string course in marksForCourse.Keys){
@@ -56,7 +64,14 @@ class Student{
 			}
 		}
 	}
-	//public void addMarkToLecturer(Lecturer lecturer,) { }
+	public void addMarkToLecturer(Lecturer lecturer, string course, double mark) {
+		if (!lecturer.marksForCourse.ContainsKey(course)) {
+			throw new Exception("нет курса");
+		}else{
+			marksForCourse[course].Add(mark);
+			lecturer.setAvgMark
+		}
+	}
 	public static bool operator > (Student std1, Student std2) {
 		return (std1.avgMark > std2.avgMark);
 	}
@@ -85,9 +100,10 @@ class Lecturer : Mentor{
 	public void printInfo(){
 		Console.WriteLine($"Имя: {name}");
 		Console.WriteLine($"Фамилия: {surname}");
+		Console.WriteLine($"Средняя оценка за лекции: {avgMark}");
 	}
 	private double avgMark;
-    public void setAvgmark(){
+    public void setAvgMark(){
         if (marksForCourse.Count != 0){
             int marksAmount = 0;
             foreach (string course in marksForCourse.Keys){
@@ -101,13 +117,24 @@ class Lecturer : Mentor{
             avgMark = 0;
         }
     }
-
+    public static bool operator > (Student std1, Student std2){
+        return (std1.avgMark > std2.avgMark);
+    }
+    public static bool operator < (Student std1, Student std2){
+        return (std1.avgMark < std2.avgMark);
+    }
+    public static bool operator !=(Student std1, Student std2){
+        return (std1.avgMark != std2.avgMark);
+    }
+    public static bool operator ==(Student std1, Student std2){
+        return (std1.avgMark == std2.avgMark);
+    }
 }
 
 class Reviewer : Mentor{
 	public Reviewer(string name, string surname) : base(name, surname) { }
 	public void putMarks(Student student, string courseName, double mark){
 		if (!student.marksForCourse.ContainsKey(courseName)) { throw new Exception("студент не изучает данный курс"); }
-		else { student.marksForCourse[courseName].Add(mark);student.setAvgmark(); }
+		else { student.marksForCourse[courseName].Add(mark);student.setAvgMark(); }
 	}
 }
