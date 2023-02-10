@@ -3,6 +3,7 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 string pathToFile = "D:\\TestFile.txt";
 Dictionary<string, List<List<string>>> cookBook = addFileToCookBook(pathToFile);
@@ -44,8 +45,19 @@ Dictionary<string, List<List<string>>> addFileToCookBook(string pathToFile)
     }
     return cookBook;
 }
-
-//void getShopListByDishes(List<string> dishes, int personCount) 
-//{ 
-
-//}
+getShopListByDishes(cookBook, new List<string> { "Омлет", "Запеченный картофель" }, 2);
+Dictionary<string, List<string>> getShopListByDishes(Dictionary<string, List<List<string>>> cookBook, List<string> dishes, int personCount)
+{
+    Dictionary<string, List<string>> shopList = new Dictionary<string, List<string>>();
+    foreach (string dish in dishes)
+    {
+        foreach (List<string> ingridients in cookBook[dish])
+        {
+            List<string> lst = ingridients.GetRange(4, 2);
+            lst.Add("quantity");
+            lst.Add((Convert.ToInt32(ingridients.ElementAt(3)) * personCount).ToString());
+            shopList.Add(ingridients.ElementAt(1), lst);
+        }
+    }
+    return shopList;
+}
