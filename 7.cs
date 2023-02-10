@@ -33,6 +33,7 @@ Dictionary<string, List<List<string>>> addFileToCookBook(string pathToFile)
         cookBook.Add(dishName, composition);
         if (totalOffset == linesOfText.Length)
             endOfText = true;
+
         totalOffset += 1;
         offset = totalOffset;
     }
