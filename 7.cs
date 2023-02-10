@@ -1,13 +1,8 @@
-using System;
-using System.Text;
-using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+using System;
 
 string pathToFile = "D:\\TestFile.txt";
 Dictionary<string, List<List<string>>> cookBook = addFileToCookBook(pathToFile);
-getShopListByDishes(cookBook, new List<string> { "ќмлет", "‘ахитос" }, 2);
 
 Dictionary<string, List<List<string>>> addFileToCookBook(string pathToFile)
 {
@@ -46,6 +41,7 @@ Dictionary<string, List<List<string>>> addFileToCookBook(string pathToFile)
     }
     return cookBook;
 }
+getShopListByDishes(cookBook, new List<string> { "ќмлет", "‘ахитос" }, 2);
 Dictionary<string, List<string>> getShopListByDishes(Dictionary<string, List<List<string>>> cookBook, List<string> dishes, int personCount)
 {
     Dictionary<string, List<string>> shopList = new Dictionary<string, List<string>>();
@@ -70,4 +66,33 @@ Dictionary<string, List<string>> getShopListByDishes(Dictionary<string, List<Lis
         }
     }
     return shopList;
+}
+
+//------------------------------------------------------------------------------------------------------------------------------
+List<string[]> listOfFiles = new List<string[]>();
+listOfFiles.Add(File.ReadAllLines("D:\\1.txt"));
+listOfFiles.Add(File.ReadAllLines("D:\\2.txt"));
+listOfFiles.Add(File.ReadAllLines("D:\\3.txt"));
+mergeFiles(listOfFiles);
+void mergeFiles(List<string[]> listOfFiles)
+{
+    SortedDictionary<int, string[]> lenghtOfFiles = new SortedDictionary<int, string[]>();
+    string allLines = new string("");
+    foreach (string[] file in listOfFiles)
+    {
+        lenghtOfFiles.Add(file.Length, file);
+    }
+    foreach (string[] file in lenghtOfFiles.Values)
+    {
+        allLines += String.Concat(file);
+    }
+    if (File.Exists("D:\\amalgama.txt"))
+    {
+        File.WriteAllText("D:\\amalgama.txt", allLines);
+    }
+    else
+    {
+        File.Create("D:\\amalgama.txt");
+        File.WriteAllText("D:\\amalgama.txt", allLines);
+    }
 }
