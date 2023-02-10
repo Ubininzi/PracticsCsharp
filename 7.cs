@@ -45,7 +45,7 @@ Dictionary<string, List<List<string>>> addFileToCookBook(string pathToFile)
     }
     return cookBook;
 }
-getShopListByDishes(cookBook, new List<string> { "Омлет", "Запеченный картофель" }, 2);
+getShopListByDishes(cookBook, new List<string> { "Омлет", "Фахитос" }, 2);
 Dictionary<string, List<string>> getShopListByDishes(Dictionary<string, List<List<string>>> cookBook, List<string> dishes, int personCount)
 {
     Dictionary<string, List<string>> shopList = new Dictionary<string, List<string>>();
@@ -53,10 +53,20 @@ Dictionary<string, List<string>> getShopListByDishes(Dictionary<string, List<Lis
     {
         foreach (List<string> ingridients in cookBook[dish])
         {
-            List<string> lst = ingridients.GetRange(4, 2);
-            lst.Add("quantity");
-            lst.Add((Convert.ToInt32(ingridients.ElementAt(3)) * personCount).ToString());
-            shopList.Add(ingridients.ElementAt(1), lst);
+            if (shopList.ContainsKey(ingridients.ElementAt(1)))
+            {
+                int amountOfIngridient = Convert.ToInt32(shopList[ingridients.ElementAt(1)].ElementAt(3));
+                amountOfIngridient += Convert.ToInt32(ingridients.ElementAt(3)) * personCount;
+                shopList[ingridients.ElementAt(1)].RemoveAt(3);
+                shopList[ingridients.ElementAt(1)].Add(amountOfIngridient.ToString());
+            }
+            else
+            {
+                List<string> lst = ingridients.GetRange(4, 2);
+                lst.Add("quantity");
+                lst.Add((Convert.ToInt32(ingridients.ElementAt(3)) * personCount).ToString());
+                shopList.Add(ingridients.ElementAt(1), lst);
+            }
         }
     }
     return shopList;
