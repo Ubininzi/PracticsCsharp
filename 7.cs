@@ -7,6 +7,7 @@ using System.Linq;
 
 string pathToFile = "D:\\TestFile.txt";
 Dictionary<string, List<List<string>>> cookBook = addFileToCookBook(pathToFile);
+getShopListByDishes(cookBook, new List<string> { "ќмлет", "‘ахитос" }, 2);
 
 Dictionary<string, List<List<string>>> addFileToCookBook(string pathToFile)
 {
@@ -45,7 +46,6 @@ Dictionary<string, List<List<string>>> addFileToCookBook(string pathToFile)
     }
     return cookBook;
 }
-getShopListByDishes(cookBook, new List<string> { "ќмлет", "‘ахитос" }, 2);
 Dictionary<string, List<string>> getShopListByDishes(Dictionary<string, List<List<string>>> cookBook, List<string> dishes, int personCount)
 {
     Dictionary<string, List<string>> shopList = new Dictionary<string, List<string>>();
