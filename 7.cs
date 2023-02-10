@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 
 string pathToFile = "D:\\TestFile.txt";
-string[] linesOfText = File.ReadAllLines(pathToFile);
-Dictionary<string, List<List<string>>> cookBook = new Dictionary<string, List<List<string>>>();
-addFileToCookBook(linesOfText, cookBook);
-void addFileToCookBook(string[] linesOfText, Dictionary<string, List<List<string>>> cookBook)
+Dictionary<string, List<List<string>>> cookBook = addFileToCookBook(pathToFile);
+
+Dictionary<string, List<List<string>>> addFileToCookBook(string pathToFile)
 {
+    string[] linesOfText = File.ReadAllLines(pathToFile);
+    Dictionary<string, List<List<string>>> cookBook = new Dictionary<string, List<List<string>>>();
     int offset = 0, totalOffset = 0;
     bool endOfText = false;
     while (!endOfText)
@@ -40,6 +41,11 @@ void addFileToCookBook(string[] linesOfText, Dictionary<string, List<List<string
             endOfText = true;
         totalOffset += 1;
         offset = totalOffset;
-
     }
+    return cookBook;
 }
+
+//void getShopListByDishes(List<string> dishes, int personCount) 
+//{ 
+
+//}
