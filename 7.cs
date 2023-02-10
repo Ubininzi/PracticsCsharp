@@ -35,9 +35,9 @@ void addFileToCookBook(string[] linesOfText, Dictionary<string, List<List<string
             composition.Add(ingridient);
         }
         totalOffset += 2;
-        if (cookBook.ContainsKey(dishName))
-            if (totalOffset == linesOfText.Length)
-                endOfText = true;
+        cookBook.Add(dishName, composition);
+        if (totalOffset == linesOfText.Length)
+            endOfText = true;
         totalOffset += 1;
         offset = totalOffset;
 
