@@ -1,2 +1,2 @@
-#Вывод консоли:
+# Вывод консоли:
 ![Alt text](ConsoleOutput.png)
